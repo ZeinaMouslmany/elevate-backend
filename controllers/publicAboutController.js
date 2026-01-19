@@ -18,6 +18,7 @@ const getAbout = async (req, res) => {
           workshops: '',
         },
         profileImageUrl: '',
+        statsEnabled: true,
       });
     }
 
@@ -31,6 +32,8 @@ const getAbout = async (req, res) => {
         workshops: about.stats?.workshops || '',
       },
       profileImageUrl: about.profileImageUrl || '',
+      statsEnabled:
+        typeof about.statsEnabled === 'boolean' ? about.statsEnabled : true,
     });
   } catch (err) {
     console.error(err.message);

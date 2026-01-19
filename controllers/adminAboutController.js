@@ -17,6 +17,7 @@ const getAbout = async (req, res) => {
           workshops: '',
         },
         profileImageUrl: '',
+        statsEnabled: true,
       });
     }
 
@@ -31,12 +32,13 @@ const getAbout = async (req, res) => {
 // @access  Private
 const updateAbout = async (req, res) => {
   try {
-    const { 
-      name, 
-      tagline, 
-      bio, 
-      stats, 
-      profileImageUrl 
+    const {
+      name,
+      tagline,
+      bio,
+      stats,
+      profileImageUrl,
+      statsEnabled,
     } = req.body;
 
     // Find existing About or create new one
@@ -53,6 +55,8 @@ const updateAbout = async (req, res) => {
           workshops: stats?.workshops || '',
         },
         profileImageUrl: profileImageUrl || '',
+        statsEnabled:
+          typeof statsEnabled === 'boolean' ? statsEnabled : true,
       });
     } else {
       // Update fields
@@ -78,6 +82,9 @@ const updateAbout = async (req, res) => {
       }
       if (profileImageUrl !== undefined) {
         about.profileImageUrl = profileImageUrl;
+      }
+      if (statsEnabled !== undefined) {
+        about.statsEnabled = !!statsEnabled;
       }
     }
 
